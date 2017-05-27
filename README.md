@@ -3,8 +3,10 @@ SwitchConfigApi
 
 简介
 -----------
-1. 本程序为H3C交换机封装了一层北向接口， 用户可以通过RESTful的方式提交JSON给本接口， 本程序会解析JSON内容去交换机通过模拟登录的方式执行相应的命令。         
+1. 本程序为H3C交换机封装了一层北向接口， 用户可以通过RESTful的方式向接口提交JSON， 本程序会解析JSON内容,然后模拟登录交换机执行相应的命令。         
 2. 本程序只演示向交换机写入和删除路由的操作。
+3. 已测试的设备有H3C S5120-48C-HI ,H3C  S5500 ,H3C S6800-4C
+4. 更多参数设置查看帮助: SwitchConfigApi --help
 
 
 Fire Up
@@ -12,7 +14,7 @@ Fire Up
 ```
 启动接口服务
  ./server.sh
-ListenPort:0.0.0.0:8083,AuthKey:admin:admin2,ClientAuthKey:YWRh-WsuYWRh-Wsm,LimitListener:1    // 默认监听8083端口，默认客户端使用YWRh-WsuYWRh-Wsm进行头部验证，默认限制并发为1
+ListenPort:0.0.0.0:8083,AuthKey:admin:admin2,ClientAuthKey:YWRh-WsuYWRh-Wsm,LimitListener:1    // 默认监听8083端口，默认客户端使用YWRh-WsuYWRh-Wsm进行http头验证，默认限制并发为1
 
 
 client 调用方法
@@ -67,7 +69,7 @@ CLI正则验证，保障“安全”的命令才能被执行
 
 安全机制
 ----------------
-1. 客户端需要有合法的Http头部验证，这个验证字符串是在本程序启动的时候生产，客户端必须使用这个特定字符串才能正确调用接口，可通过参数自定义头验证。
+1. 客户端需要有合法的Http头验证，这个验证字符串是在本程序启动的时候生产，客户端必须使用这个特定字符串才能正确调用接口，可通过参数自定义头验证。
 2. 客户端JSON中包含的交换机密码， 目前采用：base64(真实密码)加密。  
 3. 服务端启动接口的时候可以定义并发数量，控制同一时间操作交换机的client数量。
 4. 客户端提交的CLI命令，必须通过正则验证， 避免误操作。
