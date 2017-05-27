@@ -18,7 +18,7 @@ ListenPort:0.0.0.0:8083,AuthKey:admin:admin2,ClientAuthKey:YWRh-WsuYWRh-Wsm,Limi
 
 
 client 调用方法
-$  curl  -d@'setanddel.json'  http://127.0.0.1:8083  -H "Authorization: Basic YWRh-WsuYWRh-Wsm"   //插入路由
+$  curl  -d@'setanddel.json'  http://127.0.0.1:8083  -H "Authorization: Basic YWRh-WsuYWRh-Wsm"   //提交JSON
 200
 
 ```
@@ -41,6 +41,7 @@ client提交的JSON举例
 
 状态返回码
 --------------
+```
 1：  静态路由配置中包含查询的路由
 0:   静态路由配置中不包含查询的路由
 200：  命令没有报错。
@@ -53,7 +54,7 @@ client提交的JSON举例
 302 :   未知的cmdlevel数值
 303 :   switch timeout , user or password fail!
 304-309 :   cmd_exec 函数执行过程中的错误。
-
+```
 
 
 CLI正则验证，保障“安全”的命令才能被执行
