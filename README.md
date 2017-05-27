@@ -57,21 +57,21 @@ client提交的JSON举例
 ```
 
 
-CLI正则验证，保障“安全”的命令才能被执行
+保障“安全”的命令才能被执行
 ------------------------------
-1. 为了确保只有安全的命令才会被提交，目前只允许以下5种命令格式，如果需要放宽限制，请修改checkCmd函数
-
 ```
-2. switch_Cmd_level":2 时，   只放行这两种命令，不符合正则表达式的命令不会被执行。
-      * * ip route-static  10.XXX.XXX.XXX 255.255.255.0   XXX.XXX.XXX.XXX       增加路由命令
-      ＊＊ undo ip route-static  10.XXX.XXX.XXX 255.255.255.0  XXX.XXX.XXX.XXX   删除路由命令
+1. 为了确保只有安全的命令才会被提交，checkCmd函数有严格的正则表达式过滤.
+
+2. 本例只允许两种命令可以被执行
+   ip route-static  10.XXX.XXX.XXX 255.255.255.0   XXX.XXX.XXX.XXX       增加路由命令
+   undo ip route-static  10.XXX.XXX.XXX 255.255.255.0  XXX.XXX.XXX.XXX   删除路由命令
 ```  
 
 
 安全机制
 ----------------
 1. 客户端需要有合法的Http头验证，这个验证字符串是在本程序启动的时候生产，客户端必须使用这个特定字符串才能正确调用接口，可通过参数自定义头验证。
-2. 客户端JSON中包含的交换机密码， 目前采用：base64(真实密码)加密。  
+2. 客户端JSON中包含的交换机密码， 目前采用：base64(真实密码)加密, 如果你觉得不安全可以自行修改。
 3. 服务端启动接口的时候可以定义并发数量，控制同一时间操作交换机的client数量。
 4. 客户端提交的CLI命令，必须通过正则验证， 避免误操作。
 
@@ -89,7 +89,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/home/workspace/src/SwitchConfigApi/SwitchConfigApi -log_dir=/home/workspace/src/SwitchConfigApi/log         
+ExecStart=/home/workspace/src/SwitchConfigApi/SwitchConfigApi -log_dir=/home/workspace/src/SwitchConfigApi/log            //程序目录请自行修改
 Restart=on-failure
 
 [Install]
