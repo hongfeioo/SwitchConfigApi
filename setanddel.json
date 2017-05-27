@@ -1,0 +1,8 @@
+{
+	"switch_username": "yihf",
+	"switch_password": "MTIzNDU2Nzg=",
+	"switch_Cmd_level": 2,
+	"switch_command": "ip route-static 10.21.8.0 255.255.255.0 10.10.88.1;undo ip route-static 10.20.8.0 255.255.255.0 10.10.88.1",
+	"switch_ipandport": "10.10.100.20:22",
+	"switch_timeout": 10
+}
